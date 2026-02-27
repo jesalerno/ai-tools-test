@@ -1,0 +1,363 @@
+SPDXVersion: SPDX-2.3
+DataLicense: CC0-1.0
+SPDXID: SPDXRef-DOCUMENT
+DocumentName: Fractal Card Generator SBOM
+DocumentNamespace: https://github.com/johnsalerno/FractalCardGenerator/spdx
+Creator: Tool: Auto-generated
+Creator: Organization: Fractal Card Generator Project
+Created: 2026-01-22T19:48:57Z
+
+##### Package: FractalCardGenerator
+
+PackageName: FractalCardGenerator
+SPDXID: SPDXRef-FractalCardGenerator
+PackageVersion: 1.0.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2024 Fractal Card Generator
+PackageDescription: A web application for generating fractal-based playing card back designs
+
+##### Package: fractal-card-backend
+
+PackageName: fractal-card-backend
+SPDXID: SPDXRef-fractal-card-backend
+PackageVersion: 1.0.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2024 Fractal Card Generator
+PackageDescription: Backend service for fractal card generation
+
+##### Package: fractal-card-frontend
+
+PackageName: fractal-card-frontend
+SPDXID: SPDXRef-fractal-card-frontend
+PackageVersion: 1.0.0
+PackageDownloadLocation: NOASSERTION
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2024 Fractal Card Generator
+PackageDescription: Frontend for fractal card generator
+
+##### Package: express
+
+PackageName: express
+SPDXID: SPDXRef-express
+PackageVersion: 4.22.1
+PackageDownloadLocation: https://registry.npmjs.org/express/-/express-4.22.1.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2009-2014 TJ Holowaychuk, Copyright (c) 2013-2014 Roman Shtylman, Copyright (c) 2014-2015 Douglas Christopher Wilson
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/express@4.22.1
+
+##### Package: cors
+
+PackageName: cors
+SPDXID: SPDXRef-cors
+PackageVersion: 2.8.6
+PackageDownloadLocation: https://registry.npmjs.org/cors/-/cors-2.8.6.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2013 Troy Goode
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/cors@2.8.6
+
+##### Package: express-rate-limit
+
+PackageName: express-rate-limit
+SPDXID: SPDXRef-express-rate-limit
+PackageVersion: 8.2.1
+PackageDownloadLocation: https://registry.npmjs.org/express-rate-limit/-/express-rate-limit-8.2.1.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2013-2016 Nate Robins, Copyright (c) 2016-2021 Nate Robins, Copyright (c) 2021-present Nate Robins
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/express-rate-limit@8.2.1
+
+##### Package: canvas
+
+PackageName: canvas
+SPDXID: SPDXRef-canvas
+PackageVersion: 2.11.2
+PackageDownloadLocation: https://registry.npmjs.org/canvas/-/canvas-2.11.2.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2010 LearnBoost, and contributors
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/canvas@2.11.2
+
+##### Package: complex.js
+
+PackageName: complex.js
+SPDXID: SPDXRef-complex.js
+PackageVersion: 2.4.3
+PackageDownloadLocation: https://registry.npmjs.org/complex.js/-/complex.js-2.4.3.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2015-2021 Robert Eisele
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/complex.js@2.4.3
+
+##### Package: react
+
+PackageName: react
+SPDXID: SPDXRef-react
+PackageVersion: 18.3.1
+PackageDownloadLocation: https://registry.npmjs.org/react/-/react-18.3.1.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) Facebook, Inc. and its affiliates
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/react@18.3.1
+
+##### Package: react-dom
+
+PackageName: react-dom
+SPDXID: SPDXRef-react-dom
+PackageVersion: 18.3.1
+PackageDownloadLocation: https://registry.npmjs.org/react-dom/-/react-dom-18.3.1.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) Facebook, Inc. and its affiliates
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/react-dom@18.3.1
+
+##### Package: react-scripts
+
+PackageName: react-scripts
+SPDXID: SPDXRef-react-scripts
+PackageVersion: 5.0.1
+PackageDownloadLocation: https://registry.npmjs.org/react-scripts/-/react-scripts-5.0.1.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2013-present, Facebook, Inc.
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/react-scripts@5.0.1
+
+##### Package: ajv
+
+PackageName: ajv
+SPDXID: SPDXRef-ajv
+PackageVersion: 8.17.1
+PackageDownloadLocation: https://registry.npmjs.org/ajv/-/ajv-8.17.1.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2015-2021 Evgeny Poberezkin
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/ajv@8.17.1
+
+##### Package: typescript
+
+PackageName: typescript
+SPDXID: SPDXRef-typescript
+PackageVersion: 5.9.3
+PackageDownloadLocation: https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: Apache-2.0
+PackageLicenseConcluded: Apache-2.0
+PackageCopyrightText: Copyright (c) Microsoft Corporation
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/typescript@5.9.3
+
+##### Package: jest
+
+PackageName: jest
+SPDXID: SPDXRef-jest
+PackageVersion: 29.7.0
+PackageDownloadLocation: https://registry.npmjs.org/jest/-/jest-29.7.0.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) Facebook, Inc. and its affiliates
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/jest@29.7.0
+
+##### Package: supertest
+
+PackageName: supertest
+SPDXID: SPDXRef-supertest
+PackageVersion: 7.2.2
+PackageDownloadLocation: https://registry.npmjs.org/supertest/-/supertest-7.2.2.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2014-2016 TJ Holowaychuk, Copyright (c) 2016-2018 Luke Edwards, Copyright (c) 2018-2020 Douglas Christopher Wilson
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/supertest@7.2.2
+
+##### Package: ts-jest
+
+PackageName: ts-jest
+SPDXID: SPDXRef-ts-jest
+PackageVersion: 29.4.6
+PackageDownloadLocation: https://registry.npmjs.org/ts-jest/-/ts-jest-29.4.6.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2016-2018 Kulshekhar
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/ts-jest@29.4.6
+
+##### Package: ts-node-dev
+
+PackageName: ts-node-dev
+SPDXID: SPDXRef-ts-node-dev
+PackageVersion: 2.0.0
+PackageDownloadLocation: https://registry.npmjs.org/ts-node-dev/-/ts-node-dev-2.0.0.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: Copyright (c) 2018 Pavel Ponomarev
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/ts-node-dev@2.0.0
+
+##### Package: @types/cors
+
+PackageName: @types/cors
+SPDXID: SPDXRef-@types-cors
+PackageVersion: 2.8.19
+PackageDownloadLocation: https://registry.npmjs.org/@types/cors/-/cors-2.8.19.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/%40types/cors@2.8.19
+
+##### Package: @types/express
+
+PackageName: @types/express
+SPDXID: SPDXRef-@types-express
+PackageVersion: 4.17.25
+PackageDownloadLocation: https://registry.npmjs.org/@types/express/-/express-4.17.25.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/%40types/express@4.17.25
+
+##### Package: @types/express-rate-limit
+
+PackageName: @types/express-rate-limit
+SPDXID: SPDXRef-@types-express-rate-limit
+PackageVersion: 6.0.2
+PackageDownloadLocation: https://registry.npmjs.org/@types/express-rate-limit/-/express-rate-limit-6.0.2.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/%40types/express-rate-limit@6.0.2
+
+##### Package: @types/jest
+
+PackageName: @types/jest
+SPDXID: SPDXRef-@types-jest
+PackageVersion: 29.5.14
+PackageDownloadLocation: https://registry.npmjs.org/@types/jest/-/jest-29.5.14.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/%40types/jest@29.5.14
+
+##### Package: @types/node
+
+PackageName: @types/node
+SPDXID: SPDXRef-@types-node
+PackageVersion: 20.19.30
+PackageDownloadLocation: https://registry.npmjs.org/@types/node/-/node-20.19.30.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/%40types/node@20.19.30
+
+##### Package: @types/react
+
+PackageName: @types/react
+SPDXID: SPDXRef-@types-react
+PackageVersion: 18.3.27
+PackageDownloadLocation: https://registry.npmjs.org/@types/react/-/react-18.3.27.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/%40types/react@18.3.27
+
+##### Package: @types/react-dom
+
+PackageName: @types/react-dom
+SPDXID: SPDXRef-@types-react-dom
+PackageVersion: 18.3.7
+PackageDownloadLocation: https://registry.npmjs.org/@types/react-dom/-/react-dom-18.3.7.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/%40types/react-dom@18.3.7
+
+##### Package: @types/supertest
+
+PackageName: @types/supertest
+SPDXID: SPDXRef-@types-supertest
+PackageVersion: 6.0.3
+PackageDownloadLocation: https://registry.npmjs.org/@types/supertest/-/supertest-6.0.3.tgz
+FilesAnalyzed: false
+PackageVerificationCode: NOASSERTION
+PackageLicenseDeclared: MIT
+PackageLicenseConcluded: MIT
+PackageCopyrightText: NOASSERTION
+ExternalRef: PACKAGE-MANAGER purl pkg:npm/%40types/supertest@6.0.3
+
+##### Relationships
+
+Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-FractalCardGenerator
+Relationship: SPDXRef-FractalCardGenerator CONTAINS SPDXRef-fractal-card-backend
+Relationship: SPDXRef-FractalCardGenerator CONTAINS SPDXRef-fractal-card-frontend
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-express
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-cors
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-express-rate-limit
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-canvas
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-complex.js
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-typescript
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-jest
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-supertest
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-ts-jest
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-ts-node-dev
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-@types-cors
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-@types-express
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-@types-express-rate-limit
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-@types-jest
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-@types-node
+Relationship: SPDXRef-fractal-card-backend DEPENDS_ON SPDXRef-@types-supertest
+Relationship: SPDXRef-fractal-card-frontend DEPENDS_ON SPDXRef-react
+Relationship: SPDXRef-fractal-card-frontend DEPENDS_ON SPDXRef-react-dom
+Relationship: SPDXRef-fractal-card-frontend DEPENDS_ON SPDXRef-react-scripts
+Relationship: SPDXRef-fractal-card-frontend DEPENDS_ON SPDXRef-ajv
+Relationship: SPDXRef-fractal-card-frontend DEPENDS_ON SPDXRef-typescript
+Relationship: SPDXRef-fractal-card-frontend DEPENDS_ON SPDXRef-@types-jest
+Relationship: SPDXRef-fractal-card-frontend DEPENDS_ON SPDXRef-@types-react
+Relationship: SPDXRef-fractal-card-frontend DEPENDS_ON SPDXRef-@types-react-dom

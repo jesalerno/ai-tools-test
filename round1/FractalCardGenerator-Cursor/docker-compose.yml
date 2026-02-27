@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+    # Volumes removed for production deployment (use built image)
+    # volumes:
+    #   - ./backend:/app
+    #   - /app/node_modules
+    networks:
+      - fractal-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+    depends_on:
+      - backend
+    networks:
+      - fractal-network
+
+networks:
+  fractal-network:
+    driver: bridge
