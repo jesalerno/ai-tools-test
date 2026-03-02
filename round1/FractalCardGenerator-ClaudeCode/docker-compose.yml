@@ -5,7 +5,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: fractal-backend
+    container_name: fractalcardgenerator-claude-backend
     ports:
       - "8080:8080"
     environment:
@@ -23,7 +23,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: fractal-frontend
+    container_name: fractalcardgenerator-claude-frontend
     ports:
       - "3000:80"
     environment:

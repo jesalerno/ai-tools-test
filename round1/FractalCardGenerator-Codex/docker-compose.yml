@@ -1,0 +1,23 @@
+services:
+  backend:
+    container_name: fractalcardgenerator-codex-backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - NODE_ENV=development
+      - BODY_LIMIT_MB=1
+      - ALLOWED_ORIGIN=http://localhost:3000
+
+  frontend:
+    container_name: fracticalcardgenerator-codex-frontened
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"

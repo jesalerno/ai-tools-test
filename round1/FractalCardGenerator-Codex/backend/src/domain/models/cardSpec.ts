@@ -1,0 +1,21 @@
+export const CARD_DPI = 300;
+export const CARD_WIDTH_PX = 750;
+export const CARD_HEIGHT_PX = 1050;
+export const BORDER_MM = 3;
+export const MM_PER_INCH = 25.4;
+export const BORDER_PX = Math.round((BORDER_MM / MM_PER_INCH) * CARD_DPI);
+export const CORNER_RADIUS_PX = 8;
+export const INNER_WIDTH_PX = CARD_WIDTH_PX - BORDER_PX * 2;
+export const INNER_HEIGHT_PX = CARD_HEIGHT_PX - BORDER_PX * 2;
+export const QUADRANT_WIDTH_PX = Math.ceil(INNER_WIDTH_PX / 2);
+export const QUADRANT_HEIGHT_PX = Math.ceil(INNER_HEIGHT_PX / 2);
+
+export const JPEG_QUALITY = 0.95;
+export const COVERAGE_TARGET = 0.8;
+export const MIN_ITERATIONS = 500;
+export const MAX_ITERATIONS = 2000;
+export const SAFE_MAX_ITERATIONS = 1400;
+export const MIN_ZOOM = 0.5;
+export const MAX_ZOOM = 4;
+export const MAX_GENERATION_MS = 15000;
+export const MAX_CANVAS_MEMORY_BYTES = 128 * 1024 * 1024;
