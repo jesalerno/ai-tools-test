@@ -65,3 +65,43 @@ Enforcing structural limits prevents functions from becoming unmaintainable mono
 ### 2.4. Context-Aware Relaxations
 *   **Testing Exclusions:** Strict typing rules (like `no-explicit-any`, `no-floating-promises`, `no-unsafe-assignment`) should be explicitly disabled for test files (e.g., `test/**/*.ts`) to allow for rapid, flexible test creation and mocking without polluting the main codebase's strictness.
 *   **Console Logging:** Depending on the deployment strategy, `no-console` can be turned off for Node.js backends if `console.log` is the designated logging mechanism, but should generally be restricted in the frontend in favor of structured logging.
+
+---
+
+## 3. Review-Derived Best Practices (AI Tools Review 2026-Feb-24)
+
+The empirical review introduced additional consistency controls beyond pure code style:
+
+### 3.1 Environment-First Execution
+*   Agents consistently struggled most with environment and Docker setup, not core coding.
+*   Add mandatory preflight checks (`node`, `npm`, `docker`, `docker compose`) before implementation.
+*   Require one canonical, clean-machine setup path in documentation.
+
+### 3.2 Determinism Over Optionality
+*   Open-ended stack choices increase divergence between agents.
+*   Fix architecture, package choices, and folder conventions in the spec.
+*   Pin exact dependency versions; avoid range-based version drift.
+
+### 3.3 Bounded Iteration and Self-Review
+*   Some tools rewrite large sections during self-review, reducing reproducibility.
+*   Enforce a constrained remediation loop: after initial implementation, only fix failing checks and explicit spec gaps.
+
+### 3.4 Context-Window and Large-Input Guardrails
+*   Some tools miss data when scanning large inputs.
+*   Require chunked processing + reconciliation summaries for large files/lists.
+*   Require explicit completion evidence (commands run and gate outcomes) to prevent premature “done” states.
+
+### 3.5 Consolidated Report Best-in-Class Baseline
+*   **Architecture baseline:** DDD/Clean Architecture layering (ClaudeCode scored best on architecture).
+*   **Spec fidelity baseline:** codify Codex-style strict requirement coverage for security/resource guards (15s timeout, 128MB memory cap).
+*   **UI/accessibility baseline:** adopt Cursor-style Radix UI + Tailwind pattern for accessible controls.
+*   **Runtime/tooling baseline:** use modern stack choices identified in the report (`Express 5`, `React + Vite`, `@napi-rs/canvas`, ESLint flat config).
+*   **Testing baseline:** target at least 15% test/source ratio and include E2E workflow tests.
+*   **Documentation baseline:** require OpenAPI/Swagger plus complete setup/troubleshooting docs.
+
+### 3.6 High-Impact Clarifications to Reduce Divergence
+*   Pin exact rate-limit configuration (`60 requests / 60 seconds / IP`) rather than prose-only wording.
+*   Include explicit timeout and memory-cap implementation patterns to prevent omissions.
+*   Define color-harmony enums and reject greyscale-only output when color mode is selected.
+*   Require exact ESLint complexity rule snippet (`{ "complexity": ["error", 10] }`) and enforcement in CI.
+*   Prefer registry-map dispatch over switch factories to reduce structural CCN variance across implementations.

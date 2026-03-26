@@ -1,30 +1,61 @@
-# Architecture & Technology Stack Recommendations
+# Architecture and Stack (Deterministic Baseline)
 
-This document outlines the recommended technology stack for our generative AI application, compiling the "best-in-class" choices identified during our evaluations of various project implementations.
+This document defines a fixed architecture intended to reduce variance across agents/models.
 
-## Language
-- **[TypeScript]**: Used across both the Frontend and Backend to ensure strong typing, developer experience, and maintainable codebases.
+## 1. Fixed Technology Choices
+- Language: TypeScript across frontend and backend
+- Frontend: React 19 + Vite
+- Backend: Express 5.x
+- Canvas/Image: `@napi-rs/canvas`
+- Math: `complex.js`
+- Validation: `ajv`
+- Security middleware: `cors`, `express-rate-limit`
+- UI/a11y baseline: Radix UI primitives + Tailwind utility styling
+- API contract docs: OpenAPI/Swagger required
 
-## Frontend
-- **Framework**: **React 19**
-  - *Why*: The most cutting-edge standard for React development.
-- **Build Tool / Bundler**: **Vite**
-  - *Why*: Provides an incredibly fast development server and optimized build tooling. Replaces the deprecated and slower `create-react-app` (`react-scripts`).
-- **Styling and UI Foundation**:
-  - **Tailwind CSS**: Utility-first CSS framework for rapid and maintainable UI design.
-  - **Radix UI Primitives** (`@radix-ui/*`): Unstyled, perfectly accessible UI primitive components.
-  - **Utility Libraries**: `clsx`, `tailwind-merge`, and `class-variance-authority` (CVA).
-  - **Icons**: `lucide-react`.
-  - *Why*: Combining unstyled primitives with Tailwind and these utility libraries is the modern gold standard for building accessible, highly customizable, compound component libraries (following the *shadcn/ui* pattern).
+No substitutions unless explicitly approved by spec.
 
-## Backend
-- **Server Framework**: **Express 5.x**
-  - *Why*: A major step forward that provides native async-await error handling capability out of the box without requiring external wrapper utilities.
-- **Graphics / Image Generation**: **`@napi-rs/canvas`**
-  - *Why*: A highly performance-optimized, modern Rust-based implementation. It avoids the complex native build step headaches frequently encountered with the standard Node `canvas` binary.
-- **Mathematical Operations**: **`complex.js`**
-  - *Why*: Standard library for handling the complex mathematical formulas inherent in fractal/generative logic.
-- **API/Middleware Utilities**:
-  - **`cors`**: For cross-origin resource sharing management.
-  - **`express-rate-limit`**: Essential for preventing abuse of the generation endpoints.
-  - **`ajv`**: Fast JSON Schema Validator for robust validation of generation request payloads.
+## 2. Service Separation
+- Two runtime services only:
+  - `frontend`
+  - `backend`
+- Services communicate over HTTP only.
+- No shared runtime process.
+
+## 3. Backend Layering (required)
+- `domain`: fractal logic, deterministic math, no framework imports
+- `application`: use-cases, validation orchestration, API contract mapping
+- `infrastructure`: Express handlers, canvas adapters, logging, env wiring
+
+Dependency direction must remain:
+`domain <- application <- infrastructure`
+- Validation should be schema-driven (`ajv`) to reduce branching complexity in request validators.
+
+## 4. Shared Contract (required)
+- Canonical API types at root: `shared/types.ts`
+- Backend and frontend must import from this contract path (or generated mirror) without shape drift.
+
+## 5. Determinism Constraints
+- Keep a stable folder structure and naming conventions.
+- Pin dependency versions exactly.
+- Avoid introducing additional frameworks for state management, styling, logging, or data access beyond listed dependencies.
+- Use a single canonical endpoint layout:
+  - `POST /api/cards/generate`
+  - `GET /api/health`
+- Use registry-map dispatch for fractal generator lookup; avoid large `switch` factories.
+- Enforce explicit timeout and memory-guard modules in infrastructure wiring.
+
+## 6. Container and Runtime Requirements
+- Multi-stage Docker builds.
+- Non-root runtime user.
+- Frontend production image served by Nginx.
+- Backend image includes only runtime dependencies.
+
+## 7. Operational Consistency
+- Configuration only via env vars with documented defaults.
+- No persistence layer, database, or disk cache.
+- Structured logging with request correlation IDs.
+- Include E2E workflow validation (Playwright or Cypress) in the test strategy.
+
+## 8. Why this baseline
+Review findings showed the highest instability in environment setup and in open-ended architecture/tooling choices. This baseline intentionally narrows optionality to improve first-run success and cross-agent consistency.
