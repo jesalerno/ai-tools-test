@@ -14,6 +14,21 @@ This standard is optimized for reproducibility across different agents/models. T
 - Keep folder and file naming stable; do not introduce alternate architecture patterns.
 - Do not perform broad stylistic rewrites after checks pass.
 
+## 3.1 Safe Array / Buffer Patterns
+These patterns are **banned** in production source. They cause `RangeError: Maximum call stack size exceeded` on typed arrays and large collections (Node.js spread limit is ~65k–125k arguments depending on V8 version):
+
+| ❌ Banned pattern | ✅ Required replacement |
+|---|---|
+| `Math.max(...typedArray)` | Explicit `for` loop accumulator |
+| `Math.min(...typedArray)` | Explicit `for` loop accumulator |
+| `Math.max(...array)` where array may exceed ~50k elements | Explicit `for` loop accumulator |
+| `Math.min(...array)` where array may exceed ~50k elements | Explicit `for` loop accumulator |
+| `fn(...largeArray)` for any function not designed for variadic spread | Use `.reduce()` or an explicit loop |
+
+Rationale: pixel density buffers (e.g., 375×525 quadrant = 196,875 elements) reliably overflow the call stack when spread into `Math.max`/`Math.min`. This class of bug is silent during development when smaller arrays are used and fails stochastically in production.
+
+ESLint cannot catch this automatically; it must be enforced via code review checklist and the fractal renderer test suite.
+
 ## 4. Required Lint Rules
 - `@typescript-eslint/no-explicit-any`: `error`
 - `@typescript-eslint/no-floating-promises`: `error`
@@ -54,6 +69,7 @@ This standard is optimized for reproducibility across different agents/models. T
 - Avoid technical debt markers (`TODO`, `FIXME`, `HACK`, `XXX`) in production paths.
 
 ## 9. Environment and Delivery Discipline
+- This section is the source of truth for measurable quality gates and delivery evidence.
 - Required gate order:
   1. `npm run lint`
   2. `npm run build`
@@ -62,7 +78,7 @@ This standard is optimized for reproducibility across different agents/models. T
 - Keep remediation patch sets minimal and targeted.
 - Test/source LOC ratio target: `>=15%`.
 - Minimum test file count target: `>=4`.
-- Include OpenAPI/Swagger contract artifact and E2E test coverage in the delivery baseline.
+- Include OpenAPI/Swagger API contract artifact and E2E validation coverage evidence in the delivery baseline.
 
 ## 9.1 Complexity Refactor Policy
 - Any function with CCN `>=11` must be refactored unless it is an approved structural dispatcher.

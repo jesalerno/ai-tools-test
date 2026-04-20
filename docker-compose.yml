@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  playwright-mcp:
+    image: mcp/playwright:latest
+    stdin_open: true
+    tty: true
+    container_name: playwright-mcp
+    restart: unless-stopped
