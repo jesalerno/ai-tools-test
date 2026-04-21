@@ -21,6 +21,7 @@ Build a production-ready web app that generates print-quality fractal playing-ca
 ### 2.1 Core User Flows
 - Generate with selected fractal method via `Go`.
 - Generate with random method via `Surprise Me`.
+  - After generation completes, the fractal method dropdown **must update** to reflect the method actually used by the server.
 - Show generated image inline and replace prior result.
 - No persistence, accounts, uploads, or database.
 
@@ -29,6 +30,7 @@ Build a production-ready web app that generates print-quality fractal playing-ca
   - Fractal method dropdown (11 methods).
   - `Go` button.
   - `Surprise Me` button.
+  - Display area for generated card image.
 - Design:
   - Responsive layout for desktop/mobile.
   - Native HTML controls with custom CSS.
@@ -36,6 +38,12 @@ Build a production-ready web app that generates print-quality fractal playing-ca
 - Error UX:
   - Inline, actionable error messages.
   - Recoverable state after failed generation (no full-page dead end).
+  - Use React error boundaries to catch and display errors without crashing the entire UI.
+- Performance:
+  - Show loading state during generation.
+  - Do not block UI thread; use async patterns.
+  - Prevent caching of HTML pages to ensure fresh loads.
+
 
 ## 3. Output and Rendering Requirements
 
@@ -93,6 +101,42 @@ These constraints must be verified by the fractal renderer test suite (see Secti
 - IFS/attractors/flame: iteration count and density scaling until coverage threshold or budget limit.
 - L-systems: scale/offset/stroke strategy to occupy usable quadrant area.
 - Heightmaps/phase plots: full-domain sampling without sparse holes.
+
+### 5.3 Per-Renderer Color Mapping Strategy (Required)
+
+Incorrect iteration-to-color mapping is the primary cause of flat, pixelated, or near-black output. Each renderer class **must** use the coloring strategy below.
+
+#### Escape-time renderers (Mandelbrot, Julia, Burning Ship, Heightmap)
+- Use **log-mapped palette indexing**: `t = log(iter + 1) / log(MAX_ITER + 1)`.
+- Do **not** use linear mapping (`t = iter / MAX_ITER`). At typical parameter values, 95%+ of exterior pixels escape at low iteration counts, compressing nearly all pixels into the first 1–6% of the palette and producing flat banding.
+- Smooth iteration count (continuous coloring) is recommended to eliminate discrete banding rings.
+
+#### Newton fractal
+- Use a **cyclic palette** with separate stride indexing per root basin.
+- Example: `paletteIdx = (rootIndex * STRIDE + iter % STRIDE) % CYCLE_LENGTH`.
+- Direct `iter / MAX_ITER` linear mapping loses basin color distinction.
+
+#### Density-based renderers (IFS, Flame Fractal, Strange Attractor)
+- Use **log-density mapping** with gamma ≤ 0.5: `t = log(density + 1) / log(maxDensity + 1)`.
+- Do **not** use linear density. Hot-spot pixels vastly outnumber cold ones; linear mapping produces mostly-black output except at a few bright points.
+
+#### Flame Fractal (chaos game constraint)
+- Must use the IFS chaos game: **randomly select a transform per iteration** (uniform random selection), not round-robin (`i % n`).
+- Deterministic cycling creates periodic closed-curve artifacts (visible rings in the output).
+- A **warmup period of ≥ 20 iterations** must be discarded before recording pixel hits.
+- Affine coefficients must be sufficiently expansive to produce chaotic (non-convergent) orbits.
+
+#### Phase Plot
+- Pixel brightness must have a **minimum floor of ≥ 0.5** to prevent near-black output across most of the complex plane.
+- Recommended formula: `brightness = base + amplitude × |sin(π · log(magnitude))|` with `base ≥ 0.6` and `base + amplitude ≤ 1.0`. This creates visible isocurve contour rings without dark regions.
+
+#### Lyapunov
+- **Stable regions** (positive Lyapunov exponent) must **not** render as solid `rgb(0,0,0)`.
+- Use a **dark tint derived from the active palette** (e.g., 10–20% brightness scaling) so stable regions remain visually distinct from chaotic regions without being opaque black voids.
+- Use at least 3 distinct symbolic sequences (e.g., `[0,1]`, `[0,0,1]`, `[0,1,1]`) to provide variety across seeds.
+
+### 5.4 Solid-Black Prohibition
+Rendering any significant pixel region as literal `rgb(0,0,0)` — not derived from the configured palette — is treated as a **color compliance violation**, equivalent to greyscale output under §17.1. All pixels must derive their final color from the harmony palette, even in "dark" or "stable" render zones.
 
 ## 6. API and Contract
 
@@ -266,6 +310,11 @@ These constraints must be verified by the fractal renderer test suite (see Secti
 - Frontend production container serves static assets via Nginx.
 - Backend default runtime port: `8080` (env-overridable).
 - Frontend default runtime port: `3000` (env-overridable).
+- **Nginx cache policy (required)**:
+  - `index.html` must be served with `Cache-Control: no-cache, no-store, must-revalidate` and `Pragma: no-cache`.
+  - Hashed JS/CSS assets (content-addressed by Vite build) may use `Cache-Control: public, max-age=31536000, immutable`.
+  - API proxy responses (`/api/`) must also carry `Cache-Control: no-cache, no-store, must-revalidate`.
+  - The `<meta http-equiv="Cache-Control">` no-cache tags in `index.html` serve as a belt-and-suspenders complement to the nginx headers.
 - Provide `.env.example` with mandatory variables:
   - `PORT=8080`
   - `BODY_SIZE_LIMIT_MB=2`
@@ -326,7 +375,9 @@ These constraints must be verified by the fractal renderer test suite (see Secti
 - Must implement all 6 harmony modes with exact enum-friendly values:
   - `PRIMARY`, `SQUARE`, `COMPLEMENTARY`, `TRIAD`, `ANALOGOUS`, `TETRADIC`.
 - Greyscale output is a spec violation when a color harmony type is configured.
+- Solid-black output in any significant render region is treated as equivalent to a greyscale violation (see §5.4).
 - Color mapping strategy (gradient vs discrete) must be explicitly documented and test-validated.
+- Each renderer class must use the coloring strategy specified in §5.3. Deviations require documented justification.
 
 ## 18. Known Challenges and Required Mitigations
 - Canvas native modules:
