@@ -1,0 +1,51 @@
+{
+  "name": "fcg-claude-frontend",
+  "version": "1.0.0",
+  "description": "Fractal Card Generator frontend (fcg-claude).",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20 <21"
+  },
+  "scripts": {
+    "dev": "vite --port 3040 --strictPort",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview --port 3040 --strictPort",
+    "lint": "eslint .",
+    "format": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "e2e": "playwright test",
+    "start": "vite preview --port 3040 --strictPort"
+  },
+  "dependencies": {
+    "@radix-ui/react-select": "2.1.4",
+    "@radix-ui/react-slot": "1.1.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.49.1",
+    "@tailwindcss/vite": "4.1.14",
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "16.1.0",
+    "@testing-library/user-event": "14.5.2",
+    "@types/node": "20.17.10",
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "@vitejs/plugin-react": "4.3.4",
+    "eslint": "9.37.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-react-hooks": "5.1.0",
+    "eslint-plugin-react-refresh": "0.4.16",
+    "jsdom": "25.0.1",
+    "prettier": "3.6.2",
+    "tailwindcss": "4.1.14",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.46.2",
+    "vite": "6.0.3",
+    "vitest": "2.1.8",
+    "@vitest/coverage-v8": "2.1.8"
+  }
+}

@@ -36,7 +36,7 @@ Build a production-ready web app that generates print-quality fractal playing-ca
 - Design:
   - Responsive layout for desktop/mobile.
   - Native HTML controls with custom CSS.
-  - Follow Material Design 3 interaction principles (clear hierarchy, error prevention, recovery), without requiring an external component library.
+  - Follow Material Design 3 interaction principles (clear hierarchy, error prevention, recovery).
   - Reference: https://m3.material.io/components
 - Error UX:
   - Inline, actionable error messages.
@@ -55,7 +55,7 @@ Build a production-ready web app that generates print-quality fractal playing-ca
 - Physical card size: `2.5in x 3.5in` (`63.5mm x 88.9mm`).
 - Print output: JPEG at `300 DPI`.
 - Raster target: `750 x 1050 px`.
-- Border: `3mm` white border (`~35 px` at 300 DPI), rounded corners (`8 px` radius minimum).
+- Border: `3mm` white border (`~35 px` at 300 DPI), rounded corners (`8 px` radius minimum). 
 
 ### 3.2 Symmetry and Seamlessness
 - Generate one quadrant and mirror to all four quadrants.

@@ -1,0 +1,14 @@
+**/node_modules
+**/dist
+**/coverage
+**/test
+**/e2e
+**/playwright-report
+**/test-results
+**/*.tsbuildinfo
+.git
+.gitignore
+.DS_Store
+*.log
+TASKS.md
+TIME_TRACKING.md
