@@ -17,12 +17,15 @@ import { MethodSelector } from './MethodSelector';
 import { CardDisplay } from './CardDisplay';
 import { ErrorBoundary } from './ErrorBoundary';
 
+/** Default method shown in the dropdown on initial load. */
+const DEFAULT_METHOD: FractalMethod = 'mandelbrot';
+
 /** Root application component. */
 function AppContent() {
   const { isLoading, result, errorMessage, selectedMethod, generate, clearError } = useGenerate();
-  const [dropdownMethod, setDropdownMethod] = useState<FractalMethod | null>(null);
+  const [dropdownMethod, setDropdownMethod] = useState<FractalMethod>(DEFAULT_METHOD);
 
-  const handleMethodChange = (method: FractalMethod | null) => {
+  const handleMethodChange = (method: FractalMethod) => {
     setDropdownMethod(method);
     clearError();
   };

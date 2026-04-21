@@ -10,19 +10,18 @@ import type { FractalMethod } from '../shared/types';
 import { FRACTAL_METHODS, FRACTAL_METHOD_LABELS } from '../shared/types';
 
 interface MethodSelectorProps {
-  value: FractalMethod | null;
-  onChange: (method: FractalMethod | null) => void;
+  value: FractalMethod;
+  onChange: (method: FractalMethod) => void;
   isDisabled: boolean;
 }
 
 /**
- * Dropdown for selecting a fractal method.
- * Shows all 11 methods plus a "Random" option.
+ * Dropdown for selecting one of the 11 fractal methods.
+ * Random selection is handled by the "Surprise Me" button, not this control.
  */
 export function MethodSelector({ value, onChange, isDisabled }: MethodSelectorProps) {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const v = event.target.value;
-    onChange(v === '' ? null : (v as FractalMethod));
+    onChange(event.target.value as FractalMethod);
   };
 
   return (
@@ -35,12 +34,11 @@ export function MethodSelector({ value, onChange, isDisabled }: MethodSelectorPr
           id: 'fractal-method',
           'aria-label': 'Select fractal method',
         }}
-        value={value ?? ''}
+        value={value}
         onChange={handleChange}
         disabled={isDisabled}
         sx={{ mt: 1 }}
       >
-        <option value="">— Random (Surprise Me) —</option>
         {FRACTAL_METHODS.map((method) => (
           <option key={method} value={method}>
             {FRACTAL_METHOD_LABELS[method]}

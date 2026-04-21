@@ -8,9 +8,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import type { GenerateResponse } from '../shared/types';
 import { FRACTAL_METHOD_LABELS } from '../shared/types';
+
+/** Spec §3.3: minimum non-background coverage threshold. */
+const COVERAGE_THRESHOLD = 0.8;
 
 interface CardDisplayProps {
   isLoading: boolean;
@@ -99,6 +103,17 @@ export function CardDisplay({ isLoading, result }: CardDisplayProps) {
         <Typography variant="caption" color="text.secondary">
           {result.metadata.durationMs}ms
         </Typography>
+        <Tooltip
+          title={`Spec minimum: ${(COVERAGE_THRESHOLD * 100).toFixed(0)}% — ${result.metadata.coverage >= COVERAGE_THRESHOLD ? 'threshold met' : 'below threshold'}`}
+        >
+          <Chip
+            label={`Coverage: ${(result.metadata.coverage * 100).toFixed(1)}%`}
+            color={result.metadata.coverage >= COVERAGE_THRESHOLD ? 'success' : 'error'}
+            size="small"
+            variant="outlined"
+            aria-label={`Coverage ${(result.metadata.coverage * 100).toFixed(1)} percent, ${result.metadata.coverage >= COVERAGE_THRESHOLD ? 'meets' : 'below'} the 80 percent threshold`}
+          />
+        </Tooltip>
         {result.metadata.warnings.length > 0 && (
           <Typography
             variant="caption"
