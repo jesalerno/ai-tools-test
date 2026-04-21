@@ -28,8 +28,10 @@
 | 10 | Coverage metric chip (spec §3.3 threshold, pass/fail colour) + remove random dropdown option | +420m | +430m | ~10 min |
 | 10 | Debug: noUncheckedIndexedAccess caused FRACTAL_METHODS[0] to be T\|undefined → use literal default | +430m | +435m | ~5 min |
 | 10 | Update time log, TASKS.md, and README to reflect Phase 9–10 changes | +435m | +440m | ~5 min |
+| 11 | Bug fix: dropdown selection reverted on every re-render (render-time setState anti-pattern) | +440m | +445m | ~5 min |
+| 11 | Update time log, TASKS.md for Phase 11 debug | +445m | +448m | ~3 min |
 
-**Total:** ~440 min (~7h 20m)
+**Total:** ~448 min (~7h 28m)
 
 ---
 
@@ -52,4 +54,8 @@
 
 ### Phase 10 — Coverage chip + dropdown (~5 min)
 - `noUncheckedIndexedAccess: true` in tsconfig makes array index access return `T | undefined`. `FRACTAL_METHODS[0]` was typed as `FractalMethod | undefined`, incompatible with `useState<FractalMethod>`. **Fix:** use the string literal `'mandelbrot'` as the initial state value.
+
+### Phase 11 — Dropdown selection bug (~5 min)
+- **Root cause:** `App.tsx` contained a conditional `setDropdownMethod` call executed directly during render (a React anti-pattern). After any generation completed, `selectedMethod` became non-null. On every subsequent re-render (including the one triggered by the user opening the dropdown), the condition `dropdownMethod !== selectedMethod` fired and immediately reverted the user's selection back to the last generated method — making every option except the most-recently-generated one unselectable. Most visibly: `phasePlot` (last in the list) could never be chosen after any prior generation.
+- **Fix:** Replaced the render-time mutation with `useEffect(() => { setDropdownMethod(selectedMethod) }, [selectedMethod])`. The effect runs only when `selectedMethod` actually changes (i.e. after a generation completes), leaving user dropdown changes untouched between generations.
 

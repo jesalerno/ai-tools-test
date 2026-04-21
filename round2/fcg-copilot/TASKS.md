@@ -99,3 +99,12 @@
 - [x] App: dropdownMethod initialised to 'mandelbrot' literal (avoids noUncheckedIndexedAccess error)
 - [x] Tests updated: option count 12 → 11; two new coverage-chip tests (pass + fail threshold)
 - [x] 12/12 tests pass; 0 lint errors; containers rebuilt and healthy
+
+## Phase 11: Bug Fix — Dropdown Selection ✅
+- [x] Diagnosed render-time `setState` anti-pattern in `App.tsx` (lines 42–44)
+  - Conditional `setDropdownMethod` called during render caused every re-render to revert the user's dropdown selection back to the last generated method
+  - All options other than the most recently generated method were effectively unselectable; `phasePlot` (last in list) was the most obviously affected
+- [x] Fixed by replacing render-time mutation with `useEffect([selectedMethod])`
+  - Effect fires only when `selectedMethod` changes (after a generation completes)
+  - User dropdown changes between generations are no longer overwritten
+- [x] 12/12 tests pass; 0 lint errors; frontend container rebuilt and healthy
