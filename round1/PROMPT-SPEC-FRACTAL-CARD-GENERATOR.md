@@ -69,9 +69,10 @@ Defaults apply across all methods; implementations may clamp within the range to
 
 **Behavior:**
 - "Go" button: Generate card using selected fractal method from dropdown
-- "Surprise Me" button: Randomly select a fractal method and generate
-- Each generation creates a unique design (use random seeds/parameters)
-- No data persistence required
+- "Surprise Me" button: Randomly select a fractal method and generate; update the dropdown to reflect the selected method
+- Each generation should produce a unique design using random seeds/parameters
+- No data persistence required; all operations are stateless and in-memory
+
 
 ### Technical Requirements
 
