@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8095:8095"
+    environment:
+      - PORT=8095
+      - BODY_SIZE_LIMIT_MB=2
+      - MAX_GENERATION_MS=15000
+      - MAX_CANVAS_MEMORY_BYTES=134217728
+      - RATE_LIMIT_WINDOW_MS=60000
+      - RATE_LIMIT_MAX=60
+      - NODE_ENV=production
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "3050:80"

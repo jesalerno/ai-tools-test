@@ -1,0 +1,38 @@
+{
+  "name": "fcg-codex-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20 <21"
+  },
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint --max-warnings 0 .",
+    "build": "vite build",
+    "test": "vitest run --coverage",
+    "start": "vite preview --port 3035 --strictPort"
+  },
+  "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.1",
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "16.2.0",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "19.1.2",
+    "@typescript-eslint/eslint-plugin": "8.46.2",
+    "@typescript-eslint/parser": "8.46.2",
+    "@vitejs/plugin-react": "4.4.1",
+    "eslint": "9.39.1",
+    "jsdom": "26.1.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.46.2",
+    "vite": "6.4.2",
+    "vitest": "4.0.3",
+    "@vitest/coverage-v8": "4.0.3"
+  }
+}

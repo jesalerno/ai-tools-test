@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: Fractal Card Generator API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8085
+paths:
+  /api/health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: Healthy service
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  timestamp:
+                    type: string
+  /api/cards/generate:
+    post:
+      summary: Generate fractal card back image
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method:
+                  type: string
+                  enum: [MANDELBROT, JULIA, BURNING_SHIP, NEWTON, LYAPUNOV, IFS, L_SYSTEM, STRANGE_ATTRACTOR, HEIGHTMAP, FLAME, PHASE_PLOT]
+                seed:
+                  type: integer
+                iterations:
+                  type: integer
+                zoom:
+                  type: number
+      responses:
+        '200':
+          description: Generated card image
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  imageDataUri:
+                    type: string
+                  method:
+                    type: string
+                  seed:
+                    type: integer
+                  effectiveParameters:
+                    type: object
+                  metadata:
+                    type: object
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+        '500':
+          description: Generation failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string

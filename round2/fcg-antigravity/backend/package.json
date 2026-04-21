@@ -1,0 +1,32 @@
+{
+  "name": "fcg-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "lint": "eslint --max-warnings 0 src",
+    "build": "tsc",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "start": "node dist/backend/src/infrastructure/server.js",
+    "dev": "node --watch --loader ts-node/esm src/infrastructure/server.ts"
+  },
+  "dependencies": {
+    "express": "5.0.0",
+    "ajv": "8.17.1",
+    "complex.js": "2.1.1",
+    "@napi-rs/canvas": "0.1.53",
+    "cors": "2.8.5",
+    "express-rate-limit": "7.4.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "eslint": "9.0.0",
+    "typescript-eslint": "8.0.0",
+    "@types/express": "5.0.0",
+    "@types/cors": "2.8.17",
+    "@types/jest": "29.5.12",
+    "jest": "29.7.0",
+    "ts-jest": "29.2.5",
+    "ts-node": "10.9.2"
+  }
+}
