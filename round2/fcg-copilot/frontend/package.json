@@ -15,8 +15,11 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@radix-ui/react-select": "2.2.5",
-    "@radix-ui/react-toast": "1.2.14",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.0",
+    "@fontsource/roboto": "5.2.5",
+    "@mui/icons-material": "6.4.8",
+    "@mui/material": "6.4.8",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

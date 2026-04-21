@@ -6,6 +6,9 @@
 
 import { Component } from 'react';
 import type { ReactNode, ErrorInfo } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -38,13 +41,27 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <div className="error-boundary" role="alert">
-          <h2>Something went wrong</h2>
-          <p>The application encountered an error. Please try reloading.</p>
-          <button onClick={this.handleReset} type="button">
+        <Box
+          role="alert"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 2,
+            p: 6,
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h5" component="h2" color="error">
+            Something went wrong
+          </Typography>
+          <Typography color="text.secondary">
+            The application encountered an error. Please try reloading.
+          </Typography>
+          <Button variant="contained" onClick={this.handleReset}>
             Try Again
-          </button>
-        </div>
+          </Button>
+        </Box>
       );
     }
     return this.props.children;

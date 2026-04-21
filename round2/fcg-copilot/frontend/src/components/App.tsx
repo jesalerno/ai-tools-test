@@ -1,9 +1,16 @@
 /**
  * Main application component.
- * Orchestrates the fractal card generator UI per spec §2.2.
+ * Orchestrates the fractal card generator UI per spec §2.2 (MD3 via MUI v6).
  */
 
 import { useState } from 'react';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import type { FractalMethod } from '../shared/types';
 import { useGenerate } from '../hooks/useGenerate';
 import { MethodSelector } from './MethodSelector';
@@ -21,12 +28,10 @@ function AppContent() {
   };
 
   const handleGo = async () => {
-    // Use dropdown value as method; null means Surprise Me
     await generate(dropdownMethod);
   };
 
   const handleSurpriseMe = async () => {
-    // Surprise Me always uses null (server picks random)
     await generate(null);
   };
 
@@ -36,58 +41,67 @@ function AppContent() {
   }
 
   return (
-    <main className="app">
-      <header className="app-header">
-        <h1 className="app-title">Fractal Card Generator</h1>
-        <p className="app-subtitle">Generate a unique playing card back using fractal algorithms.</p>
-      </header>
+    <Container maxWidth="sm" sx={{ py: 4 }}>
+      <Box component="header" sx={{ textAlign: 'center', mb: 3 }}>
+        <Typography variant="h4" component="h1" color="primary" fontWeight={700}>
+          Fractal Card Generator
+        </Typography>
+        <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 0.5 }}>
+          Generate a unique playing card back using fractal algorithms.
+        </Typography>
+      </Box>
 
-      <section className="controls" aria-label="Generation controls">
-        <MethodSelector
-          value={dropdownMethod}
-          onChange={handleMethodChange}
-          isDisabled={isLoading}
-        />
-        <div className="button-row">
-          <button
-            className="btn btn--primary"
-            type="button"
-            onClick={() => { void handleGo(); }}
-            disabled={isLoading}
-            aria-label="Generate card with selected method"
-          >
-            {isLoading ? 'Generating…' : 'Go'}
-          </button>
-          <button
-            className="btn btn--secondary"
-            type="button"
-            onClick={() => { void handleSurpriseMe(); }}
-            disabled={isLoading}
-            aria-label="Generate card with random fractal method"
-          >
-            Surprise Me
-          </button>
-        </div>
-      </section>
+      <Paper
+        component="section"
+        aria-label="Generation controls"
+        elevation={1}
+        sx={{ p: 3, borderRadius: 4, backgroundColor: 'rgba(103,80,164,0.05)' }}
+      >
+        <Stack spacing={2}>
+          <MethodSelector
+            value={dropdownMethod}
+            onChange={handleMethodChange}
+            isDisabled={isLoading}
+          />
+          <Stack direction="row" spacing={1.5}>
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={() => { void handleGo(); }}
+              disabled={isLoading}
+              aria-label="Generate card with selected method"
+            >
+              {isLoading ? 'Generating…' : 'Go'}
+            </Button>
+            <Button
+              variant="outlined"
+              fullWidth
+              onClick={() => { void handleSurpriseMe(); }}
+              disabled={isLoading}
+              aria-label="Generate card with random fractal method"
+            >
+              Surprise Me
+            </Button>
+          </Stack>
+        </Stack>
+      </Paper>
 
       {errorMessage && (
-        <div className="error-banner" role="alert" aria-live="polite">
-          <span className="error-message">{errorMessage}</span>
-          <button
-            className="error-dismiss"
-            type="button"
-            onClick={clearError}
-            aria-label="Dismiss error"
-          >
-            ✕
-          </button>
-        </div>
+        <Alert
+          severity="error"
+          onClose={clearError}
+          sx={{ mt: 2 }}
+          role="alert"
+          aria-live="polite"
+        >
+          {errorMessage}
+        </Alert>
       )}
 
-      <section className="display-section" aria-label="Generated card">
+      <Box component="section" aria-label="Generated card" sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
         <CardDisplay isLoading={isLoading} result={result} />
-      </section>
-    </main>
+      </Box>
+    </Container>
   );
 }
 
