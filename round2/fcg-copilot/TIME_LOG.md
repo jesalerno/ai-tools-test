@@ -24,4 +24,7 @@
 | 7 | Docker build + deploy (fix Dockerfile paths for new src/shared layout) | +340m | +355m | ~15 min |
 | 8 | E2E testing via playwright-mcp (8 scenarios, all pass) | +355m | +365m | ~10 min |
 
-**Total:** ~365 min (~6h 05m)
+| 9 | Spec §2.2 update: migrate UI from hand-rolled CSS to MUI v6 MD3 components | +365m | +415m | ~50 min |
+| 9 | Docker health check fix (localhost → 127.0.0.1 in Alpine) | +415m | +420m | ~5 min |
+
+**Total:** ~420 min (~7h 00m)
