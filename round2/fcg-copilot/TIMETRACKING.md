@@ -54,3 +54,20 @@
 1. **Flat colors (all methods)** — `t = iter / 500` maps most exterior pixels to first 1-6% of 500-entry palette. Fixed with `buildLogPalette` using `t = log(iter+1)/log(MAX+1)`.
 2. **Flame ring artifacts** — `vi = i % variations.length` created deterministic periodic orbits (closed curves). Fixed with `Math.floor(rand() * xforms.length)` random selection and seed-derived expansive affine transforms using sin variations.
 3. **Strange Attractor fixed-point collapse** — seed-modulo parameter generation (`seed % 100 / 50`) produced values in [-1.5, +0.5] where many Clifford parameter combinations are stable fixed points. Fixed with a curated table of 16 verified-chaotic Clifford parameter sets plus a fixed [-3.5, 3.5]² window (derived from the maximum output range of sin(a·y)+c·cos(a·x)).
+
+## Post-Deployment Fix: No-Cache + Surprise Me Dropdown + Dark Renderer Fix
+
+| Phase | Start | End | Duration |
+|-------|-------|-----|----------|
+| Add no-cache headers (nginx + meta tags) | 19:50 | 19:55 | ~5 min |
+| Fix Surprise Me dropdown sync (setMethod) | 19:55 | 20:00 | ~5 min |
+| Fix Phase Plot darkness (brightness formula) | 20:00 | 20:05 | ~5 min |
+| Fix Lyapunov (dark-tint stable regions + sequence variety) | 20:05 | 20:10 | ~5 min |
+| Rebuild backend + E2E verify | 20:10 | 20:15 | ~5 min |
+| **Subtotal** | 19:50 | 20:15 | **~25 min** |
+
+### Root Causes Fixed
+1. **Browser caching** — nginx `index.html` served without cache headers. Added `Cache-Control: no-cache, no-store, must-revalidate` on the `/index.html` location block.
+2. **Surprise Me dropdown not syncing** — `setMethod(result.method)` added after API response so the select reflects whichever method the server picked randomly.
+3. **Phase Plot all-dark output** — `brightness = log1p(mag)/5` yielded max ~0.42. Replaced with isocurve formula `0.65 + 0.35 * |sin(π·log(mag))|` — minimum brightness 0.65, maximum 1.0.
+4. **Lyapunov stable regions solid black** — `lyap ≥ 0` was RGB(0,0,0). Now renders at 15% dark tint of palette color. Added 5 sequence variants and fixed zoom direction (`/zoom` not `*zoom`).
