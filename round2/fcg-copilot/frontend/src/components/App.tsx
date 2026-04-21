@@ -3,7 +3,7 @@
  * Orchestrates the fractal card generator UI per spec §2.2 (MD3 via MUI v6).
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -38,10 +38,14 @@ function AppContent() {
     await generate(null);
   };
 
-  // Sync dropdown when Surprise Me updates the selected method
-  if (selectedMethod !== null && dropdownMethod !== selectedMethod && !isLoading) {
-    setDropdownMethod(selectedMethod);
-  }
+  // Sync dropdown after Surprise Me completes (selectedMethod changes only when a generation finishes).
+  // Using useEffect prevents the render-time setState anti-pattern that would reset the dropdown
+  // whenever the user changed the selection to something other than the last generated method.
+  useEffect(() => {
+    if (selectedMethod !== null) {
+      setDropdownMethod(selectedMethod);
+    }
+  }, [selectedMethod]);
 
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>

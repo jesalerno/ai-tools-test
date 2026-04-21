@@ -34,8 +34,8 @@
 - [x] API client (lib/api.ts) with ApiError
 - [x] useGenerate hook (loading, error, result, Surprise Me sync)
 - [x] ErrorBoundary component
-- [x] MethodSelector component (11 methods + Random)
-- [x] CardDisplay component (loading spinner, image, metadata, warnings)
+- [x] MethodSelector component (11 named methods; no random option in dropdown)
+- [x] CardDisplay component (loading spinner, image, coverage metric chip, warnings)
 - [x] App component (Go + Surprise Me buttons, error banner)
 - [x] Global CSS styles
 - [x] Vitest tests (components + API client)
@@ -50,7 +50,7 @@
 ## Phase 6: Test Suites ✅
 - [x] Backend unit tests: harmony, generators (55 tests), card renderer
 - [x] Backend integration tests: API (8 tests)
-- [x] Frontend component tests: MethodSelector, CardDisplay (7 tests)
+- [x] Frontend component tests: MethodSelector, CardDisplay (9 tests)
 - [x] Frontend API client tests (3 tests)
 
 ## Phase 7: Quality Gates ✅
@@ -60,8 +60,8 @@
 - [x] Backend: npm test (78 tests passed across 4 suites)
 - [x] Frontend: npm ci (TypeScript 5.8.3)
 - [x] Frontend: npm run lint (0 errors, 0 warnings)
-- [x] Frontend: npm run build (Vite → 192 kB bundle)
-- [x] Frontend: npm test (10 tests passed across 2 suites)
+- [x] Frontend: npm run build (Vite → dist/)
+- [x] Frontend: npm test (12 tests passed across 2 suites)
 
 ## Phase 8: Deploy & E2E ✅
 - [x] docker compose up --build (both images built, containers started)
@@ -72,3 +72,30 @@
 - [x] E2E: POST /api/cards/generate returns 200 with image (mandelbrot)
 - [x] E2E: invalid method returns 400
 - [x] E2E: unknown route returns 404
+
+## Phase 9: UI — MUI v6 MD3 Migration ✅
+- [x] Spec §2.2 updated to allow external MD3 component library
+- [x] Added @mui/material 6.4.8, @emotion/react, @emotion/styled, @fontsource/roboto
+- [x] Removed Radix UI dependencies
+- [x] Created src/theme.ts with MD3 colour tokens (primary #6750A4, surface #FFFBFE)
+- [x] main.tsx: wrapped with ThemeProvider + CssBaseline; Roboto 300/400/500/700
+- [x] App: Container, Paper, Stack, Button (contained/outlined), Alert
+- [x] MethodSelector: FormControl + InputLabel + NativeSelect (preserves combobox semantics for tests)
+- [x] CardDisplay: Card, CardMedia, CircularProgress, Chip
+- [x] ErrorBoundary: Box, Typography, Button
+- [x] styles.css stripped to minimal global overrides
+- [x] CORS_ORIGINS updated to include http://host.docker.internal:3000 for playwright-mcp
+- [x] Docker health check: localhost → 127.0.0.1 (Alpine wget resolution fix)
+- [x] All 10 unit tests pass; E2E smoke test confirmed
+
+## Phase 10: UI Improvements ✅
+- [x] Coverage metric chip added to CardDisplay (spec §3.3: ≥80% threshold)
+  - Green (success) when coverage ≥ 80%; red (error) when below
+  - Tooltip states the spec minimum and pass/fail verdict
+  - aria-label carries full accessible description
+- [x] Random option removed from MethodSelector dropdown
+  - Dropdown now lists exactly 11 named fractal methods
+  - "Surprise Me" button remains the sole random entry point
+- [x] App: dropdownMethod initialised to 'mandelbrot' literal (avoids noUncheckedIndexedAccess error)
+- [x] Tests updated: option count 12 → 11; two new coverage-chip tests (pass + fail threshold)
+- [x] 12/12 tests pass; 0 lint errors; containers rebuilt and healthy

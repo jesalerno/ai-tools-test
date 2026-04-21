@@ -23,8 +23,33 @@
 | 6 | Frontend npm ci + lint + build + test | +330m | +340m | ~10 min |
 | 7 | Docker build + deploy (fix Dockerfile paths for new src/shared layout) | +340m | +355m | ~15 min |
 | 8 | E2E testing via playwright-mcp (8 scenarios, all pass) | +355m | +365m | ~10 min |
-
 | 9 | Spec §2.2 update: migrate UI from hand-rolled CSS to MUI v6 MD3 components | +365m | +415m | ~50 min |
-| 9 | Docker health check fix (localhost → 127.0.0.1 in Alpine) | +415m | +420m | ~5 min |
+| 9 | Docker health check fix (localhost → 127.0.0.1 in Alpine nginx image) | +415m | +420m | ~5 min |
+| 10 | Coverage metric chip (spec §3.3 threshold, pass/fail colour) + remove random dropdown option | +420m | +430m | ~10 min |
+| 10 | Debug: noUncheckedIndexedAccess caused FRACTAL_METHODS[0] to be T\|undefined → use literal default | +430m | +435m | ~5 min |
+| 10 | Update time log, TASKS.md, and README to reflect Phase 9–10 changes | +435m | +440m | ~5 min |
 
-**Total:** ~420 min (~7h 00m)
+**Total:** ~440 min (~7h 20m)
+
+---
+
+## Debugging Notes
+
+### Phase 6 — Backend quality gates (~130 min total)
+- `typescript@5.9.2` incompatible with `typescript-eslint@8.33.0` (peer: `>=4.8.4 <5.9.0`). **Fix:** pin TypeScript to `5.8.3`.
+- `shared/types.ts` outside `rootDir: src` broke compilation. **Fix:** copy into `backend/src/shared/types.ts`; update all import paths.
+- AJV default export is a CJS class; NodeNext types expose no constructor. **Fix:** `interface AjvLike` + `as any` cast with inline comment.
+- ESLint complexity violations in `lsystem.ts` and `cardRenderer.ts`. **Fix:** refactor with named helper functions.
+- Integration tests used wrong relative paths. **Fix:** corrected to `../../src/...`.
+- Malformed JSON body returned 500 instead of 400. **Fix:** added `SyntaxError` and `entity.parse.failed` handler in Express error middleware.
+- LSystem seed test: both seeds produced identical output. **Fix:** seed `initialAngle` from PRNG.
+
+### Phase 7 — Docker build (~15 min)
+- Backend Dockerfile used `backend/package.json` paths but build context was `./backend`. **Fix:** use relative paths in all `COPY` directives.
+
+### Phase 9 — MUI migration (~5 min, post-deploy)
+- Alpine `nginx` image: `wget localhost:3000` silently fails even when nginx is listening. **Fix:** use `127.0.0.1:3000` in both `Dockerfile` `HEALTHCHECK` and `docker-compose.yml` `healthcheck.test`.
+
+### Phase 10 — Coverage chip + dropdown (~5 min)
+- `noUncheckedIndexedAccess: true` in tsconfig makes array index access return `T | undefined`. `FRACTAL_METHODS[0]` was typed as `FractalMethod | undefined`, incompatible with `useState<FractalMethod>`. **Fix:** use the string literal `'mandelbrot'` as the initial state value.
+

@@ -1,6 +1,6 @@
 # Fractal Card Generator
 
-A web application that generates the backside of a playing card using 11 distinct fractal algorithms.
+A web application that generates the backside of a playing card using 11 distinct fractal algorithms. The UI follows Material Design 3 principles, implemented with MUI v6.
 
 ## Prerequisites
 
@@ -54,20 +54,33 @@ Runs on http://localhost:3000 with API proxy to backend.
 
 ## API
 
-- `POST /api/cards/generate` — generate a fractal card
-- `GET /api/health` — health check
+- `POST /api/cards/generate` — generate a fractal card (body: `{ method?: FractalMethod, params?: { seed?, iterations?, zoom? } }`)
+- `GET /api/health` — health check (`{ status: "ok", timestamp }`)
 
 OpenAPI spec: `backend/openapi.yaml`
 
 ## Testing
 
 ```bash
-# Backend
+# Backend (78 tests)
 cd backend && npm test
 
-# Frontend
+# Frontend (12 tests)
 cd frontend && npm test
+
+# Lint (both)
+cd backend && npm run lint
+cd frontend && npm run lint
 ```
+
+## UI Features
+
+- **Fractal method dropdown** — 11 named methods; select the algorithm before clicking Go.
+- **Go button** — generates a card using the selected method.
+- **Surprise Me button** — picks a random method server-side.
+- **Coverage chip** — displays the quadrant pixel coverage percentage. Green ≥ 80% (spec §3.3 threshold); red below threshold.
+- **Loading state** — spinner shown during generation; buttons disabled.
+- **Error banner** — inline, dismissable, recoverable (no full-page dead end).
 
 ## Architecture
 
